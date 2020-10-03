@@ -7,7 +7,6 @@ clientes = []
 # op = operações no caixa eletronico, e seus respectivos tempos de duração
 op = {0: 10, 1: 20, 2: 30, 3: 40, 4: 50}
 
-"""
 def client(tempo_de_entrada, tempo_de_uso_do_caixa, operacao, cliente_atual, caixa):
     print("Tempo de entrada do cliente {}         : {:.3f}s".format(cliente_atual, tempo_de_entrada))
     print("Tempo de uso do caixa pelo cliente {}  : {:.3f}s".format(cliente_atual, tempo_de_uso_do_caixa))
@@ -24,47 +23,47 @@ def client(tempo_de_entrada, tempo_de_uso_do_caixa, operacao, cliente_atual, cai
     print("Operação escolhida pelo cliente {}     : {}".format(cliente_atual, op))
     print("Caixa utilizado pelo cliente {}        : {}".format(cliente_atual, caixa))
     print()
-"""
 
 def caixa(clientes):
     global timeCount
     global clientCount
+    caixa_a_ser_usado = random.randint(1, 3)
     caixa1 = []
     caixa2 = []
     caixa3 = []
-    if len(caixa1) == 0:
+    if len(caixa1) == 0 and caixa_a_ser_usado == 1:
         if len(clientes) != 0:
-            caixa1.append(clientes[0])         
+            caixa1.append(clientes[0])
             crnt_op = op.get(random.randint(0, 4))
 
             timeCount = timeCount + (clientes[0] - time.time())
             timeCount = timeCount + crnt_op
 
-            #client(clientes[0], timeCount, crnt_op, clientCount, 1)
+            client(clientes[0], timeCount, crnt_op, clientCount, 1)
             clientes.pop(0)
         else:
             pass
-    if len(caixa2) == 0:
+    if len(caixa2) == 0 and caixa_a_ser_usado == 2:
         if len(clientes) != 0:
-            caixa2.append(clientes[0])         
+            caixa2.append(clientes[0])
             crnt_op = op.get(random.randint(0, 4))
 
             timeCount = timeCount + (clientes[0] - time.time())
             timeCount = timeCount + crnt_op
 
-            #client(clientes[0], timeCount, crnt_op, clientCount, 2)
+            client(clientes[0], timeCount, crnt_op, clientCount, 2)
             clientes.pop(0)
         else:
             pass
-    if len(caixa3) == 0:
+    if len(caixa3) == 0 and caixa_a_ser_usado == 3:
         if len(clientes) != 0:
-            caixa3.append(clientes[0])         
+            caixa3.append(clientes[0])
             crnt_op = op.get(random.randint(0, 4))
 
             timeCount = timeCount + (clientes[0] - time.time())
             timeCount = timeCount + crnt_op
 
-            #client(clientes[0], timeCount, crnt_op, clientCount, 3)
+            client(clientes[0], timeCount, crnt_op, clientCount, 3)
             clientes.pop(0)
         else:
             pass
@@ -82,7 +81,7 @@ def agencia(clientes):
 while i != 0:
     agencia(clientes)
     caixa(clientes)
-    i = i-5
+    i = i-3
 
 print("Tempo total        : {:.3f}s ".format(timeCount))
 print("Numero de clientes : {}".format(clientCount))
