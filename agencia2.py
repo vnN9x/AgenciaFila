@@ -1,6 +1,9 @@
 import random
 
-cronometro = 600
+cronometro = 60
+
+total_clientes_atendidos = 0
+tempo_de_espera_dos_clientes = []
 
 caixa1 = 0
 caixa2 = 0
@@ -13,10 +16,6 @@ operacoes = {'saldo': 10,
 	     'extrato mensal': 50}
 
 fila_de_clientes = []
-
-def entrada_de_cliente(fila, segundo):
-    if random.randint(0, 1) == 1:
-        fila.append(segundo)
 
 def escolher_operacao():
     global operacoes
@@ -37,7 +36,8 @@ clientes = {'caixa1': None,
             'caixa3': None}
 
 for s in range(1, cronometro + 1):
-    entrada_de_cliente(fila_de_clientes, s)
+    if random.randint(0, 1) == 1:
+        fila_de_clientes.append(s)
 
     if caixa1 == 0:
         caixa1 = escolher_operacao()
@@ -71,7 +71,10 @@ for s in range(1, cronometro + 1):
         caixa1 -= 1
         if caixa1 == 0:
             try:
-                print("\nO cliente que usou o {} aguardou {} segundos\n".format('caixa 1', s - clientes['caixa1']))
+                segundo_aguardados = s - clientes['caixa1']
+                print("\nO cliente que usou o {} aguardou {} segundos\n".format('caixa 1', segundo_aguardados))
+                total_clientes_atendidos += 1
+                tempo_de_espera_dos_clientes.append(segundo_aguardados)
             except TypeError:
                 pass
 
@@ -79,7 +82,10 @@ for s in range(1, cronometro + 1):
         caixa2 -= 1
         if caixa2 == 0:
             try:
-                print("\nO cliente que usou o {} aguardou {} segundos\n".format('caixa 2', s - clientes['caixa2']))
+                segundo_aguardados = s - clientes['caixa1']
+                print("\nO cliente que usou o {} aguardou {} segundos\n".format('caixa 2', segundo_aguardados))
+                total_clientes_atendidos += 1
+                tempo_de_espera_dos_clientes.append(segundo_aguardados)
             except TypeError:
                 pass
 
@@ -87,8 +93,21 @@ for s in range(1, cronometro + 1):
         caixa3 -= 1
         if caixa3 == 0:
             try:
-                print("\nO cliente que usou o {} aguardou {} segundos\n".format('caixa 3', s - clientes['caixa3']))
+                segundo_aguardados = s - clientes['caixa1']
+                print("\nO cliente que usou o {} aguardou {} segundos\n".format('caixa 3', segundo_aguardados))
+                total_clientes_atendidos += 1
+                tempo_de_espera_dos_clientes.append(segundo_aguardados)
             except TypeError:
                 pass
 
-print(fila_de_clientes)
+#print("\n\n{} / {}".format(tempo_de_espera_dos_clientes, total_clientes_atendidos))
+
+soma_do_tempo_de_espera_dos_clientes = 0
+for value in tempo_de_espera_dos_clientes:
+    soma_do_tempo_de_espera_dos_clientes += value
+
+resultado_da_media = soma_do_tempo_de_espera_dos_clientes / total_clientes_atendidos
+
+print("\nMédia de tempo de atendimento dos clientes : {:.2f} segundos".format(resultado_da_media))
+
+print("\n\nLista de clientes não atendidos : \n{}".format(fila_de_clientes))
