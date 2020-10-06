@@ -45,7 +45,7 @@ for s in range(1, cronometro + 1):
             clientes['caixa1'] = fila_de_clientes.pop(0)
             print("Entrou um cliente no {}".format('caixa1'))
         except IndexError:
-            clientes['caixa2'] = None
+            clientes['caixa1'] = None
             caixa1 = 0
             pass
     if caixa2 == 0:
